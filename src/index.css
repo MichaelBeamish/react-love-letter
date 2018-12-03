@@ -1,0 +1,267 @@
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.right-col {
+}
+.left-col {
+}
+
+.search-invite-containers {
+  height: 60vmin;
+  max-height: 60vmin;
+}
+
+.table-card-img {
+  width: 110px;
+  height: 154px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 5px;
+}
+.side-card-img {
+  width: 90px;
+  height: 126px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 5px;
+}
+.disc-card-img {
+  width: 130px;
+  height: 182px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 5px;
+}
+.hand-card-img {
+  width: 130px;
+  height: 182px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 5px;
+}
+.draw-card-img {
+  width: 45px;
+  height: 63px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 2px;
+}
+.skull-icon {
+  width: 3em;
+}
+.btn-skull-icon {
+  width: 1.7em;
+  background-color: red;
+  padding: 2px;
+  border-radius: 50%;
+}
+.game-bubble {
+  border: 2px;
+  border-style: groove;
+  border-color: black;
+  border-radius: 10px;
+  margin: 1em;
+  padding: 1em;
+  width: 40%;
+  text-align: center;
+}
+.star-icon {
+  width: 1.25em;
+}
+.shield-icon {
+  width: 4em;
+}
+.btn-shield-icon {
+  width: 2em;
+}
+.complete-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.margin-right-2 {
+  margin-right: 2em;
+}
+.margin-left-2 {
+  margin-left: 2em;
+}
+
+.point-icon {
+  width: 1.5em;
+}
+
+.main-height {
+  height: 93.5vmin;
+}
+
+.neg {
+  margin-bottom: -20em !important;
+}
+
+.main-container {
+  padding-bottom: -10em;
+}
+
+.loading-game {
+  height: 100vmin;
+  padding-top: 2em;
+  padding-left: 2em;
+}
+
+nav {
+  z-index: +1;
+  position: relative;
+}
+.my-nav {
+}
+.nav-header {
+  margin-left: 2em;
+}
+
+.width-100 {
+  width: 100%;
+}
+.height-100 {
+  height: 100%;
+}
+.height-50 {
+  height: 50%;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
+.playerNameDisplay {
+  padding: 0.25em;
+  display: block;
+  border-bottom: 2px;
+  border-right: 2px;
+  border-bottom-style: groove;
+  border-right-style: groove;
+  border-bottom-color: black;
+  border-right-color: black;
+  border-bottom-right-radius: 5px;
+  font-size: 1.05em;
+  color: black;
+}
+
+.playersCardsInHand {
+  margin-top: 2em;
+}
+
+.styleForCurrentPlayer {
+  border: 4px;
+  border-style: groove;
+  border-color: gold;
+}
+
+.styleForOtherPlayers {
+  border: 4px;
+  border-style: groove;
+  border-color: black;
+}
+
+.center-content {
+  align-items: center;
+}
+
+.zero-mp {
+  padding: 0em !important;
+  margin: 0em !important;
+}
+
+.noScroll {
+  overflow: hidden;
+}
+
+.scrollable {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.play-button {
+  width: 90%;
+  margin-top: 0.25em;
+}
+
+.overLay-TL {
+  width: 33.33vw;
+  height: 46.75vh;
+  position: absolute;
+  left: 16.66%;
+  top: 6.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overLay-AC {
+  width: 33.33vw;
+  height: 46.75vh;
+  position: absolute;
+  left: 50%;
+  top: 6.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overLay-TR {
+  width: 33.33vw;
+  height: 46.75vh;
+  position: absolute;
+  left: 50%;
+  top: 53.25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overLay-THIS {
+  width: 33.33vw;
+  height: 46.75vh;
+  position: absolute;
+  left: 16.66%;
+  top: 53.25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-card-img {
+  width: 180px;
+  height: 252px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 5px;
+  box-shadow: 10px 10px 5px rgb(36, 36, 36);
+}
+
+.personal-visual {
+  color: white;
+  background-color: black;
+  padding: 0.5em;
+  border-radius: 5px;
+  border-style: outset;
+}
+
+.personal-visual-title {
+  margin-top: 0em;
+}
+
+.personal-visual-button {
+  width: 90px;
+}
+
+.round-over-display {
+  background-color: white;
+  border-radius: 15px;
+  border-style: outset;
+  width: 25vw;
+  height: 28vh;
+  position: absolute;
+  left: 37.5%;
+  top: 40%;
+  box-shadow: 10px 10px 5px rgb(36, 36, 36);
+}
