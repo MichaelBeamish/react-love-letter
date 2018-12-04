@@ -131,6 +131,7 @@ class CardButtons extends Component {
               this.props.playCard(
                 gameID, //Game ID.
                 game, //Game Object.
+                users, //All users.
                 thisPlayerID, //This player ID.
                 player.id, //Other player ID.
                 card, //Card string. e.g.'king'
@@ -206,6 +207,7 @@ class CardButtons extends Component {
               this.props.playCard(
                 gameID, //Game ID.
                 game, //Game Object.
+                users, //All users.
                 thisPlayerID, //This player ID.
                 guardedplayer.id, //Other player ID.
                 card, //Card string. e.g.'king'
@@ -233,8 +235,9 @@ class CardButtons extends Component {
             this.props.playCard(
               gameID, //Game ID.
               game, //Game Object.
+              users, //All users.
               thisPlayerID, //This player ID.
-              thisPlayerID, //Other player ID.
+              thisPlayerID, //Also this player ID.
               card, //Card string. e.g.'king'
               cardPicked, //'cardInHand' or 'newCard'.
               null //Guessed card string.

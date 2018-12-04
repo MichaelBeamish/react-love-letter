@@ -1,7 +1,5 @@
 export const GENERATE_GAME = "GENERATE_GAME";
 export const GENERATE_GAME_ERROR = "GENERATE_GAME_ERROR";
-export const GENERATE_NEW_ROUND_GAME = "GENERATE_NEW_ROUND_GAME";
-export const GENERATE_NEW_ROUND_GAME_ERROR = "GENERATE_NEW_ROUND_GAME_ERROR";
 export const CREATED_GAME_TO_NULL = "CREATED_GAME_TO_NULL";
 export const PLAYER_READY = "PLAYER_READY";
 export const PLAYER_READY_ERROR = "PLAYER_READY_ERROR";
@@ -57,9 +55,9 @@ export const generateGame = (receivedPlayers, gameName) => {
       player1 = {
         id: 0,
         userReference: receivedPlayers[0],
-        cardInHand: "",
-        newCard: "",
-        chosenCard: "",
+        cardInHand: null,
+        newCard: null,
+        chosenCard: null,
         discardedCards: [],
         totalDiscardedPoints: 0,
         protected: false,
@@ -75,9 +73,9 @@ export const generateGame = (receivedPlayers, gameName) => {
       player2 = {
         id: 1,
         userReference: receivedPlayers[1],
-        cardInHand: "",
-        newCard: "",
-        chosenCard: "",
+        cardInHand: null,
+        newCard: null,
+        chosenCard: null,
         discardedCards: [],
         totalDiscardedPoints: 0,
         protected: false,
@@ -95,9 +93,9 @@ export const generateGame = (receivedPlayers, gameName) => {
       player3 = {
         id: 2,
         userReference: receivedPlayers[2],
-        cardInHand: "",
-        newCard: "",
-        chosenCard: "",
+        cardInHand: null,
+        newCard: null,
+        chosenCard: null,
         discardedCards: [],
         totalDiscardedPoints: 0,
         protected: false,
@@ -114,9 +112,9 @@ export const generateGame = (receivedPlayers, gameName) => {
       player4 = {
         id: 3,
         userReference: receivedPlayers[3],
-        cardInHand: "",
-        newCard: "",
-        chosenCard: "",
+        cardInHand: null,
+        newCard: null,
+        chosenCard: null,
         discardedCards: [],
         totalDiscardedPoints: 0,
         protected: false,
@@ -161,10 +159,6 @@ export const generateGame = (receivedPlayers, gameName) => {
         dispatch({ type: GENERATE_GAME_ERROR, payload: err });
       });
   };
-};
-
-export const generateNewRound = (gameID, deliveredGame) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {};
 };
 
 export const playerReadyForNextRound = (gameID, deliveredGame, playerID) => {
@@ -244,11 +238,11 @@ export const playerReadyForNextRound = (gameID, deliveredGame, playerID) => {
 
       players.forEach(player => {
         player.cardInHand = pickRandom();
-        player.newCard = "";
+        player.newCard = null;
         if (player.id === whosTurn) {
           player.newCard = pickRandom();
         }
-        player.chosenCard = "";
+        player.chosenCard = null;
         player.discardedCards = [];
         player.totalDiscardedPoints = 0;
         player.protected = false;
@@ -276,10 +270,10 @@ export const playerReadyForNextRound = (gameID, deliveredGame, playerID) => {
         })
         .then(() => {
           //Then resumes the dispatch.
-          dispatch({ type: GENERATE_NEW_ROUND_GAME, payload: gameID });
+          dispatch({ type: PLAYER_READY, payload: gameID });
         })
         .catch(err => {
-          dispatch({ type: GENERATE_NEW_ROUND_GAME_ERROR, payload: err });
+          dispatch({ type: PLAYER_READY_ERROR, payload: err });
         });
     }
 

@@ -2,8 +2,6 @@ import {
   GENERATE_GAME,
   GENERATE_GAME_ERROR,
   CREATED_GAME_TO_NULL,
-  GENERATE_NEW_ROUND_GAME,
-  GENERATE_NEW_ROUND_GAME_ERROR,
   PLAYER_READY,
   PLAYER_READY_ERROR
 } from "../actions/gameActions";
@@ -23,12 +21,6 @@ const gameReducer = (state = initState, action) => {
       return { gameCreatedID: action.payload };
     case PLAYER_READY_ERROR:
       console.log("player ready error", action.payload);
-      return state;
-    case GENERATE_NEW_ROUND_GAME:
-      console.log("generated new round", action.payload);
-      return { gameCreatedID: action.payload };
-    case GENERATE_NEW_ROUND_GAME_ERROR:
-      console.log("error generating new round", action.payload);
       return state;
     case CREATED_GAME_TO_NULL:
       console.log("reverted game ID to null in redux state");

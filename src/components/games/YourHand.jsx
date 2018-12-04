@@ -44,7 +44,7 @@ class YourHand extends Component {
       <div>
         <h5>Your Hand:</h5>
 
-        {cardInHand.length ? (
+        {cardInHand ? (
           <div className="row center">
             <img
               onClick={() => this.cardInHandClicked()}
@@ -71,7 +71,7 @@ class YourHand extends Component {
             ) : null}
           </div>
         ) : null}
-        {newCard.length ? (
+        {newCard ? (
           <div className="row center">
             <img
               onClick={() => this.newCardClicked()}

@@ -17,10 +17,7 @@ import FaceUpBurns from "./FaceUpBurns";
 import DrawPile from "./DrawPile";
 
 //ACTIONS:
-import {
-  generateNewRound,
-  playerReadyForNextRound
-} from "../../store/actions/gameActions";
+import { playerReadyForNextRound } from "../../store/actions/gameActions";
 
 class Game extends Component {
   state = {
@@ -153,6 +150,7 @@ class Game extends Component {
         );
       }
 
+      //GET WINNING USER:
       let winningUser;
       if (game && users && game.status === "roundOver") {
         let winningPlayer = game.players.find(
@@ -162,6 +160,27 @@ class Game extends Component {
           user => user.id === winningPlayer.userReference
         );
       }
+
+      //GET ALL USERS READY STATUS:
+      let readyUsers = [];
+      let notReadyUsers = [];
+      game.players.forEach(player => {
+        if (player.isReadyForNextRound === true) {
+          users.forEach(user => {
+            if (user.id === player.userReference) {
+              readyUsers.push(<div key={user.nickname}>{user.nickname}</div>);
+            }
+          });
+        } else {
+          users.forEach(user => {
+            if (user.id === player.userReference) {
+              notReadyUsers.push(
+                <div key={user.nickname}>{user.nickname}</div>
+              );
+            }
+          });
+        }
+      });
 
       return (
         <div className="main-height noScroll">
@@ -182,9 +201,16 @@ class Game extends Component {
                 priestPlayed={this.priestPlayed}
               />
             </div>
-            <div className="col l8 m8 grey darken-4 height-100 v-center width-100 zero-mp">
-              {otherPlayers}
-            </div>
+            {/* MAKE END GAME DISPLAY LOOK NICER */}
+            {game.status !== "gameOver" ? (
+              <div className="col l8 m8 grey darken-4 height-100 v-center width-100 zero-mp">
+                {otherPlayers}
+              </div>
+            ) : (
+              <div className="col l8 m8 grey darken-4 height-100 end-game-display">
+                <h1 className="white-text">Game Over</h1>
+              </div>
+            )}
             <div className="col l2 m2 blue darken-2 height-100 right-col width-100 zero-mp">
               <h5>Burn Cards:</h5>
               {game.faceUpBurnCards.length ? (
@@ -195,7 +221,14 @@ class Game extends Component {
               ) : null}
               <h5>Draw Pile ({game.drawPile.length} cards left)</h5>
               <DrawPile drawPile={game.drawPile} />
-              *Prior Plays? <br /> *Comments
+              <div className="prior-plays-container">
+                <h5>Prior Plays:</h5>
+                {thisPlayer.personalizedPriorPlays.map((prior, index) => (
+                  <div className="prior-play" key={index}>
+                    •{prior}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <div id="All THINGS WITH ABSOLUTE POSITIONS">
@@ -221,24 +254,50 @@ class Game extends Component {
                 </div>
               </div>
             ) : null}
-            {/* ADD DISPLAY FOR IF ALREADY CLICKED THE READY AND NOT EVERYONE ELSE IS &&&&&&&&& IF GAME IS COMPLETELY OVER */}
-            {game.status === "roundOver" &&
-            thisPlayer.isReadyForNextRound === false ? (
+            {winningUser && game.status === "roundOver" ? (
               <div className="round-over-display">
                 <div className="center">
                   <h4>
-                    <u>ROUND OVER</u>
+                    <u>ROUND IS OVER</u>
                   </h4>
                   <h5>{winningUser.nickname} won this round.</h5>
-                  <p>Ready for next round?</p>
-                  <button
-                    onClick={() =>
-                      playerReadyForNextRound(gameID, game, thisPlayer.id)
-                    }
-                    className="btn blue"
-                  >
-                    OK
-                  </button>
+                  {thisPlayer.isReadyForNextRound === false ? (
+                    <div>
+                      <p>Ready for next round?</p>
+                      <button
+                        onClick={() =>
+                          playerReadyForNextRound(gameID, game, thisPlayer.id)
+                        }
+                        className="btn btn-small blue"
+                      >
+                        OK
+                      </button>
+                    </div>
+                  ) : null}
+                  <div className="row">
+                    <div className="col l6">
+                      <u>
+                        <b>Not Ready:</b>
+                      </u>
+                      {notReadyUsers}
+                    </div>
+                    <div className="col l6">
+                      <u>
+                        <b>Ready:</b>
+                      </u>
+                      {readyUsers}
+                    </div>
+                  </div>
+                  {notReadyUsers.length === 0 ? (
+                    <button
+                      className="btn btn-small blue"
+                      onClick={() =>
+                        playerReadyForNextRound(gameID, game, null)
+                      }
+                    >
+                      Begin New Round
+                    </button>
+                  ) : null}
                 </div>
               </div>
             ) : null}
@@ -372,7 +431,7 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   connect(
     mapStateToProps,
-    { generateNewRound, playerReadyForNextRound }
+    { playerReadyForNextRound }
   ),
   firestoreConnect([{ collection: "users" }, { collection: "games" }])
 )(Game);

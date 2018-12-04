@@ -47,7 +47,7 @@ const PlayerDisplay = ({ player, user, whosTurn }) => {
                   />
                 </div>
               )}
-              {player.newCard.length ? (
+              {player.newCard ? (
                 <img
                   className="draw-card-img"
                   src={"/img/cardback.jpg"}

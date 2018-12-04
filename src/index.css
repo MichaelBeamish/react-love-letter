@@ -259,9 +259,16 @@ nav {
   border-radius: 15px;
   border-style: outset;
   width: 25vw;
-  height: 28vh;
   position: absolute;
   left: 37.5%;
-  top: 40%;
+  top: 30%;
   box-shadow: 10px 10px 5px rgb(36, 36, 36);
+  padding-bottom: 1em;
+}
+
+.prior-plays-container {
+  padding-left: 0.25em;
+}
+.prior-play {
+  margin-bottom: 2em;
 }
