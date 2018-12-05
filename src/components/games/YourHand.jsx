@@ -47,50 +47,72 @@ class YourHand extends Component {
           <small> (click card to show options)</small>
         </p>
 
-        {cardInHand ? (
-          <div className="row center">
-            <img
-              onClick={() => this.cardInHandClicked()}
-              className="hand-card-img"
-              src={"/img/" + cardInHand + ".jpg"}
-              alt="card"
-            />
-            {game.whosTurn === thisPlayer.id &&
-            this.state.cardInHandOptionsDisplayed === true ? (
-              <CardButtons
-                gameID={gameID}
-                game={game}
-                card={cardInHand}
-                cardPicked="cardInHand"
-                thisPlayer={thisPlayer}
-                users={users}
-                priestPlayed={priestPlayed}
+        <div className="row center">
+          {cardInHand ? (
+            <span>
+              <img
+                onClick={() => this.cardInHandClicked()}
+                className="hand-card-icon"
+                src={"/img/" + cardInHand + ".jpg"}
+                alt="card"
               />
-            ) : null}
-          </div>
-        ) : null}
-        {newCard ? (
-          <div className="row center">
-            <img
-              onClick={() => this.newCardClicked()}
-              className="hand-card-img"
-              src={"/img/" + newCard + ".jpg"}
-              alt="card"
-            />
-            {game.whosTurn === thisPlayer.id &&
-            this.state.newCardOptionsDisplayed === true ? (
-              <CardButtons
-                gameID={gameID}
-                game={game}
-                card={newCard}
-                cardPicked="newCard"
-                thisPlayer={thisPlayer}
-                users={users}
-                priestPlayed={priestPlayed}
+            </span>
+          ) : null}
+          {newCard ? (
+            <span>
+              <img
+                onClick={() => this.newCardClicked()}
+                className="hand-card-icon"
+                src={"/img/" + newCard + ".jpg"}
+                alt="card"
               />
-            ) : null}
-          </div>
-        ) : null}
+            </span>
+          ) : null}
+        </div>
+        <div className="row center">
+          {this.state.cardInHandOptionsDisplayed === true ? (
+            <div>
+              <img
+                className="hand-card-img"
+                src={"/img/" + cardInHand + ".jpg"}
+                alt="card"
+              />
+            </div>
+          ) : null}
+          {game.whosTurn === thisPlayer.id &&
+          this.state.cardInHandOptionsDisplayed === true ? (
+            <CardButtons
+              gameID={gameID}
+              game={game}
+              card={cardInHand}
+              cardPicked="cardInHand"
+              thisPlayer={thisPlayer}
+              users={users}
+              priestPlayed={priestPlayed}
+            />
+          ) : null}
+          {this.state.newCardOptionsDisplayed === true ? (
+            <div>
+              <img
+                className="hand-card-img"
+                src={"/img/" + newCard + ".jpg"}
+                alt="card"
+              />
+            </div>
+          ) : null}
+          {game.whosTurn === thisPlayer.id &&
+          this.state.newCardOptionsDisplayed === true ? (
+            <CardButtons
+              gameID={gameID}
+              game={game}
+              card={newCard}
+              cardPicked="newCard"
+              thisPlayer={thisPlayer}
+              users={users}
+              priestPlayed={priestPlayed}
+            />
+          ) : null}
+        </div>
       </div>
     );
   }
