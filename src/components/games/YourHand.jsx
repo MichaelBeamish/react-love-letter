@@ -42,7 +42,10 @@ class YourHand extends Component {
     } = this.props;
     return (
       <div>
-        <h5>Your Hand:</h5>
+        <p>
+          <b>Your Hand:</b>
+          <small> (click card to show options)</small>
+        </p>
 
         {cardInHand ? (
           <div className="row center">
@@ -52,11 +55,6 @@ class YourHand extends Component {
               src={"/img/" + cardInHand + ".jpg"}
               alt="card"
             />
-            <br />
-            {game.whosTurn === thisPlayer.id &&
-            this.state.cardInHandOptionsDisplayed === false ? (
-              <small>(click for play options)</small>
-            ) : null}
             {game.whosTurn === thisPlayer.id &&
             this.state.cardInHandOptionsDisplayed === true ? (
               <CardButtons
@@ -79,11 +77,6 @@ class YourHand extends Component {
               src={"/img/" + newCard + ".jpg"}
               alt="card"
             />
-            <br />
-            {game.whosTurn === thisPlayer.id &&
-            this.state.newCardOptionsDisplayed === false ? (
-              <small>(click for play options)</small>
-            ) : null}
             {game.whosTurn === thisPlayer.id &&
             this.state.newCardOptionsDisplayed === true ? (
               <CardButtons

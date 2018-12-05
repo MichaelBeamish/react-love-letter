@@ -21,8 +21,8 @@
   border-radius: 5px;
 }
 .side-card-img {
-  width: 90px;
-  height: 126px;
+  width: 45px;
+  height: 63px;
   margin-left: 2px;
   margin-right: 2px;
   border-radius: 5px;
@@ -135,16 +135,26 @@ nav {
   align-items: center;
 }
 
+.playerNameDisplayContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .playerNameDisplay {
+  width: 90%;
   padding: 0.25em;
   display: block;
   border-bottom: 2px;
   border-right: 2px;
+  border-left: 2px;
   border-bottom-style: groove;
   border-right-style: groove;
+  border-left-style: groove;
   border-bottom-color: black;
   border-right-color: black;
+  border-left-color: black;
   border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   font-size: 1.05em;
   color: black;
 }
@@ -184,8 +194,8 @@ nav {
 }
 
 .play-button {
-  width: 90%;
-  margin-top: 0.25em;
+  width: 100%;
+  margin-top: 0.1em;
 }
 
 .overLay-TL {
@@ -267,8 +277,14 @@ nav {
 }
 
 .prior-plays-container {
-  padding-left: 0.25em;
+  margin-top: 1em;
+  padding-left: 0.1em;
+  background-color: black;
+  height: 100%;
+  overflow-y: scroll;
+  height: 100%;
 }
 .prior-play {
   margin-bottom: 2em;
+  color: white;
 }

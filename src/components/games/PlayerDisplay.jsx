@@ -23,13 +23,14 @@ const PlayerDisplay = ({ player, user, whosTurn }) => {
         className={`center height-100 width-100 grey darken-2 ${styleForCurrentPlayer}`}
       >
         <div className="row height-100">
+          <div className="playerNameDisplayContainer">
+            <span className={`${playerColor} playerNameDisplay`}>
+              {user.nickname.toUpperCase()}{" "}
+            </span>
+          </div>
           <div className="col l3 center">
-            <div>
-              <span className={`${playerColor} playerNameDisplay`}>
-                {user.nickname.toUpperCase()}{" "}
-              </span>
-            </div>
             <Points points={player.roundPoints} />
+            <p>Discarded: {player.totalDiscardedPoints}</p>
             <div className="playersCardsInHand">
               {player.isIn === true ? (
                 <img

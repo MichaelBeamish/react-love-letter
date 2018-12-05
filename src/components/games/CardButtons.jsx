@@ -115,8 +115,7 @@ class CardButtons extends Component {
             key={player.id}
             className={`btn btn-small ${playerColor} play-button`}
           >
-            <small className="left">{user.nickname}</small>
-            <small className="right">(click to see options) ▼</small>
+            <small className="center">{user.nickname} ▼</small>
           </button>
         );
       } else {
@@ -219,8 +218,7 @@ class CardButtons extends Component {
             key={thisPlayerID + option}
             className={`btn btn-small ${guardedColor} play-button`}
           >
-            <small className="left">{guardedUser.nickname} has a... </small>
-            <b className="right"> {option}</b>
+            <small>{option}</small>
           </button>
         );
       });

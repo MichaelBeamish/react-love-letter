@@ -186,11 +186,13 @@ class Game extends Component {
         <div className="main-height noScroll">
           <div className="row height-100">
             <div className="col l2 m2 blue darken-2 height-100 left-col">
-              <h4>{game.gameName.toUpperCase()}</h4>
-              <p>
-                <i>Started {moment(game.createdAt.toDate()).calendar()}</i>
-              </p>
-              <h6>Round: {game.round}</h6>
+              <b>{game.gameName.toUpperCase()}</b>
+              <br />
+              <b>Round: {game.round}</b>
+              <br />
+              <small>
+                <i>Began {moment(game.createdAt.toDate()).calendar()}</i>
+              </small>
               <YourHand
                 cardInHand={thisPlayer.cardInHand}
                 newCard={thisPlayer.newCard}
@@ -212,17 +214,24 @@ class Game extends Component {
               </div>
             )}
             <div className="col l2 m2 blue darken-2 height-100 right-col width-100 zero-mp">
-              <h5>Burn Cards:</h5>
+              <p>
+                <b>Burn Cards:</b>
+              </p>
               {game.faceUpBurnCards.length ? (
                 <FaceUpBurns faceUpBurnCards={game.faceUpBurnCards} />
               ) : null}
               {game.faceDownBurnCards.length ? (
                 <FaceDownBurns faceDownBurnCards={game.faceDownBurnCards} />
               ) : null}
-              <h5>Draw Pile ({game.drawPile.length} cards left)</h5>
+              <p>
+                <b>Draw Pile:</b> ({game.drawPile.length} cards left)
+              </p>
               <DrawPile drawPile={game.drawPile} />
               <div className="prior-plays-container">
-                <h5>Prior Plays:</h5>
+                <p className="white-text">
+                  <b>Prior Plays:</b>
+                  <small> (most recent on top)</small>
+                </p>
                 {thisPlayer.personalizedPriorPlays.map((prior, index) => (
                   <div className="prior-play" key={index}>
                     •{prior}

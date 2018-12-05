@@ -9,7 +9,8 @@ const Points = ({ points }) => {
   }
   return (
     <div>
-      Points: ({points})<br />
+      Round Wins: {points}
+      <br />
       {pointList}
     </div>
   );
