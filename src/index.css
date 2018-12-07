@@ -107,10 +107,10 @@ form {
   width: 1.25em;
 }
 .shield-icon {
-  width: 1vw;
+  width: 5vw;
 }
 .btn-shield-icon {
-  width: 2vw;
+  width: 1.25vw;
 }
 .complete-center {
   display: flex;
@@ -232,6 +232,16 @@ nav {
   justify-content: center;
   align-items: center;
 }
+.overLay-AC2 {
+  width: 33.33vw;
+  height: 46.75vh;
+  position: absolute;
+  left: 35%;
+  top: 6.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .overLay-TR {
   width: 33.33vw;
   height: 46.75vh;
@@ -320,4 +330,18 @@ nav {
   background-color: lightsteelblue;
   margin: 1em;
   padding-bottom: 1em;
+}
+.blocks-container {
+  background-color: lightsteelblue;
+  display: inline-block;
+  margin-left: 0.5em;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  height: 2.35em;
+  width: 100%;
+  border: 2px;
+  border-style: solid;
+  border-radius: 5px;
+  box-shadow: 2px 2px 1px rgb(36, 36, 36);
 }

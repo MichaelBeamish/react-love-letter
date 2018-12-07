@@ -11,7 +11,9 @@ const Points = ({ points }) => {
     <div>
       <b>Round Wins: {points}</b>
       <br />
-      {pointList}
+      <div className="blocks-container">
+        <div>{pointList}</div>
+      </div>
     </div>
   );
 };

@@ -66,6 +66,8 @@ export const playCard = (
       attacker.newCard = null;
     }
 
+    let colorScheme = ["green", "red", "purple", "orange"];
+
     //SPECIFIC CARD/PERSONALIZED MESSAGES TO PLAYERS LOGIC:
     //*****GUARD LOGIC*****
     if (card === "guard") {
@@ -75,69 +77,105 @@ export const playCard = (
           victim.discardedCards.push(victim.cardInHand);
           victim.cardInHand = null;
           victim.isIn = false;
-          victim.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} guessed correctly that you had a ${guess}.`
-          );
-          otherPlayers.forEach(player =>
-            player.personalizedPriorPlays.unshift(
-              `${attakerInfo.nickname} guessed correctly that ${
-                victimInfo.nickname
-              } had a ${guess}.`
-            )
-          );
-          attacker.personalizedPriorPlays.unshift(
-            `You guessed correctly that ${victimInfo.nickname} had a ${guess}.`
-          );
-        } else {
-          victim.personalizedPriorPlays.unshift(
-            `${
+          victim.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${
               attakerInfo.nickname
-            } guessed incorrectly that you had a ${guess}.`
-          );
+            } guessed correctly that you had a ${guess}.`
+          });
           otherPlayers.forEach(player =>
-            player.personalizedPriorPlays.unshift(
-              `${attakerInfo.nickname} guessed incorrectly that ${
+            player.personalizedPriorPlays.unshift({
+              attackerID: attackerID,
+              type: "personal",
+              message: `${attakerInfo.nickname} guessed correctly that ${
                 victimInfo.nickname
               } had a ${guess}.`
-            )
+            })
           );
-          attacker.personalizedPriorPlays.unshift(
-            `You guessed incorrectly that ${
+          attacker.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `You guessed correctly that ${
               victimInfo.nickname
             } had a ${guess}.`
+          });
+        } else {
+          victim.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${
+              attakerInfo.nickname
+            } guessed incorrectly that you had a ${guess}.`
+          });
+          otherPlayers.forEach(player =>
+            player.personalizedPriorPlays.unshift({
+              attackerID: attackerID,
+              type: "personal",
+              message: `${attakerInfo.nickname} guessed incorrectly that ${
+                victimInfo.nickname
+              } had a ${guess}.`
+            })
           );
+          attacker.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `You guessed incorrectly that ${
+              victimInfo.nickname
+            } had a ${guess}.`
+          });
         }
       } else {
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} discarded a guard.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} discarded a guard.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(`You discarded a guard.`);
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You discarded a guard.`
+        });
       }
     }
 
     //*****PRIEST LOGIC*****
     if (card === "priest") {
       if (attacker.id !== victim.id) {
-        victim.personalizedPriorPlays.unshift(
-          `${attakerInfo.nickname} looked at your hand.`
-        );
+        victim.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `${attakerInfo.nickname} looked at your hand.`
+        });
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} looked at ${victimInfo.nickname}'s hand.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} looked at ${
+              victimInfo.nickname
+            }'s hand.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(
-          `You looked at ${victimInfo.nickname}'s hand.`
-        );
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You looked at ${victimInfo.nickname}'s hand.`
+        });
       } else {
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} discarded a priest.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} discarded a priest.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(`You discarded a priest.`);
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You discarded a priest.`
+        });
       }
     }
 
@@ -148,23 +186,29 @@ export const playCard = (
           cardNumberValues[attacker.cardInHand] >
           cardNumberValues[victim.cardInHand]
         ) {
-          victim.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname}'s ${attacker.cardInHand} beat your ${
-              victim.cardInHand
-            }.`
-          );
+          victim.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname}'s ${
+              attacker.cardInHand
+            } beat your ${victim.cardInHand}.`
+          });
           otherPlayers.forEach(player =>
-            player.personalizedPriorPlays.unshift(
-              `${attakerInfo.nickname} played a baron on ${
+            player.personalizedPriorPlays.unshift({
+              attackerID: attackerID,
+              type: "personal",
+              message: `${attakerInfo.nickname} played a baron on ${
                 victimInfo.nickname
               } and won.`
-            )
+            })
           );
-          attacker.personalizedPriorPlays.unshift(
-            `Your ${attacker.cardInHand} beat ${victimInfo.nickname}'s ${
-              victim.cardInHand
-            }.`
-          );
+          attacker.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `Your ${attacker.cardInHand} beat ${
+              victimInfo.nickname
+            }'s ${victim.cardInHand}.`
+          });
           victim.totalDiscardedPoints += cardNumberValues[victim.cardInHand];
           victim.discardedCards.push(victim.cardInHand);
           victim.cardInHand = null;
@@ -174,22 +218,28 @@ export const playCard = (
           cardNumberValues[victim.cardInHand]
         ) {
           otherPlayers.forEach(player =>
-            player.personalizedPriorPlays.unshift(
-              `${attakerInfo.nickname} played a baron on ${
+            player.personalizedPriorPlays.unshift({
+              attackerID: attackerID,
+              type: "personal",
+              message: `${attakerInfo.nickname} played a baron on ${
                 victimInfo.nickname
               } and lost.`
-            )
+            })
           );
-          victim.personalizedPriorPlays.unshift(
-            `Your ${victim.cardInHand} beat ${attakerInfo.nickname}'s ${
+          victim.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `Your ${victim.cardInHand} beat ${
+              attakerInfo.nickname
+            }'s ${attacker.cardInHand}.`
+          });
+          attacker.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${victimInfo.nickname}'s ${victim.cardInHand} beat your ${
               attacker.cardInHand
             }.`
-          );
-          attacker.personalizedPriorPlays.unshift(
-            `${victimInfo.nickname}'s ${victim.cardInHand} beat your ${
-              attacker.cardInHand
-            }.`
-          );
+          });
           attacker.totalDiscardedPoints +=
             cardNumberValues[attacker.cardInHand];
           attacker.discardedCards.push(attacker.cardInHand);
@@ -197,43 +247,61 @@ export const playCard = (
           attacker.isIn = false;
         } else {
           otherPlayers.forEach(player =>
-            player.personalizedPriorPlays.unshift(
-              `${attakerInfo.nickname} played a baron on ${
+            player.personalizedPriorPlays.unshift({
+              attackerID: attackerID,
+              type: "personal",
+              message: `${attakerInfo.nickname} played a baron on ${
                 victimInfo.nickname
               }. Neither player discarded.`
-            )
+            })
           );
-          victim.personalizedPriorPlays.unshift(
-            `${
+          victim.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${
               attakerInfo.nickname
             } played a baron on you and saw your card. You both have a ${
               victim.cardInHand
             }.`
-          );
-          attacker.personalizedPriorPlays.unshift(
-            `You and ${victimInfo.nickname} both have a ${victim.cardInHand}.`
-          );
+          });
+          attacker.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `You and ${victimInfo.nickname} both have a ${
+              victim.cardInHand
+            }.`
+          });
         }
       } else {
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} discarded a baron.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} discarded a baron.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(`You discarded a baron.`);
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You discarded a baron.`
+        });
       }
     }
 
     //*****HANDMAID LOGIC*****
     if (card === "handmaid") {
       attacker.protected = true;
-      attacker.personalizedPriorPlays.unshift(
-        `You played a handmaid. Your are protected for one round.`
-      );
+      attacker.personalizedPriorPlays.unshift({
+        attackerID: attackerID,
+        type: "personal",
+        message: `You played a handmaid. Your are protected for one round.`
+      });
       otherPlayers.forEach(player =>
-        player.personalizedPriorPlays.unshift(
-          `${attakerInfo.nickname} played a handmaid.`
-        )
+        player.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `${attakerInfo.nickname} played a handmaid.`
+        })
       );
     }
 
@@ -253,67 +321,108 @@ export const playCard = (
         }
       }
       if (attacker.id !== victim.id) {
-        victim.personalizedPriorPlays.unshift(
-          `${attakerInfo.nickname} played a prince on you.`
-        );
+        victim.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `${attakerInfo.nickname} played a prince on you.`
+        });
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} played a prince on ${victimInfo.nickname}.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} played a prince on ${
+              victimInfo.nickname
+            }.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(
-          `You played a prince on ${victimInfo.nickname}.`
-        );
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You played a prince on ${victimInfo.nickname}.`
+        });
       } else {
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} played a prince on themself.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} played a prince on themself.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(
-          `You played a prince on yourself.`
-        );
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You played a prince on yourself.`
+        });
       }
     }
 
     //*****KING LOGIC*****
     if (card === "king") {
       if (attacker.id !== victim.id) {
-        victim.personalizedPriorPlays.unshift(
-          `${attakerInfo.nickname} traded their ${
+        victim.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `${attakerInfo.nickname} traded their ${
             attacker.cardInHand
           }  for your ${victim.cardInHand}.`
-        );
+        });
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} traded cards with ${victimInfo.nickname}.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} traded cards with ${
+              victimInfo.nickname
+            }.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(
-          `You traded cards with ${victimInfo.nickname}.`
-        );
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You traded cards with ${victimInfo.nickname}.`
+        });
         let tempPlaceholder = attacker.cardInHand;
         attacker.cardInHand = victim.cardInHand;
         victim.cardInHand = tempPlaceholder;
       } else {
         otherPlayers.forEach(player =>
-          player.personalizedPriorPlays.unshift(
-            `${attakerInfo.nickname} discarded a king.`
-          )
+          player.personalizedPriorPlays.unshift({
+            attackerID: attackerID,
+            type: "personal",
+            message: `${attakerInfo.nickname} discarded a king.`
+          })
         );
-        attacker.personalizedPriorPlays.unshift(`You discarded a king.`);
+        attacker.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `You discarded a king.`
+        });
       }
     }
 
     //*****COUNTESS LOGIC*****
     if (card === "countess") {
       otherPlayers.forEach(player =>
-        player.personalizedPriorPlays.unshift(
-          `${attakerInfo.nickname} discarded a countess.`
-        )
+        player.personalizedPriorPlays.unshift({
+          attackerID: attackerID,
+          type: "personal",
+          message: `${attakerInfo.nickname} discarded a countess.`
+        })
       );
-      attacker.personalizedPriorPlays.unshift(`You discarded a countess.`);
+      attacker.personalizedPriorPlays.unshift({
+        attackerID: attackerID,
+        type: "personal",
+        message: `You discarded a countess.`
+      });
     }
+
+    //Card message to all:
+    players.forEach(player => {
+      player.personalizedPriorPlays.unshift({
+        color: colorScheme[attackerID],
+        type: "play",
+        message: `${attakerInfo.nickname} played a ${card}`
+      });
+    });
 
     //IS THE ROUND OVER?:
     let allPlayersStillIn = players.filter(player => player.isIn === true);
@@ -336,6 +445,14 @@ export const playCard = (
       if (numberOfPlayersStillIn === 1) {
         //If only 1 player is still in...
         roundWinner = allPlayersStillIn[0].id;
+        //Card message to all:
+        players.forEach(player => {
+          player.personalizedPriorPlays.unshift({
+            color: "yellow",
+            type: "play",
+            message: "Round winner decided by last player in."
+          });
+        });
       } else {
         //If more than 1 player is still in...
         //Whoever has the highest card in hand is the winner.
@@ -362,6 +479,14 @@ export const playCard = (
         if (numberOfPlayersStillIn === 1) {
           //If only one left NOW...
           roundWinner = allPlayersStillIn[0].id;
+          //Card message to all:
+          players.forEach(player => {
+            player.personalizedPriorPlays.unshift({
+              color: "yellow",
+              type: "play",
+              message: "Round winner based off of highest card."
+            });
+          });
         } else {
           //If STILL more than one left...
           //Whoever has the most discarded points is the winner.
@@ -388,10 +513,41 @@ export const playCard = (
           if (numberOfPlayersStillIn === 1) {
             //If only one left NOW...
             roundWinner = allPlayersStillIn[0].id;
+            //Card message to all:
+            players.forEach(player => {
+              player.personalizedPriorPlays.unshift({
+                color: "yellow",
+                type: "play",
+                message:
+                  "Round winner based off of total sum of discarded cards."
+              });
+            });
           } else {
-            console.log("SUPER TIE!");
-            //If discarded points tie? No one gets points? First to do something? Add another round? Last player to go? First player to go?
-            //***************************************************ADD SUPER TIE LOGIC HERE*****************************************************
+            //If super tie...
+            //Random choice...
+            numberOfPlayersStillIn = allPlayersStillIn.length;
+            let randomChoice = Math.floor(
+              Math.random() * numberOfPlayersStillIn
+            );
+            allPlayersStillIn.forEach(player => {
+              player.isIn = false;
+            });
+            allPlayersStillIn[randomChoice].isIn = true;
+            //Filter out players who don't have highest amount of discarded points.
+            allPlayersStillIn = allPlayersStillIn.filter(
+              player => player.isIn === true
+            );
+
+            roundWinner = allPlayersStillIn[0].id;
+
+            players.forEach(player => {
+              player.personalizedPriorPlays.unshift({
+                color: "yellow",
+                type: "play",
+                message:
+                  "Because there was a tie between the total sum of discarded cards a winner was chosen based off of a dice roll."
+              });
+            });
           }
         }
       }

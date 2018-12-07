@@ -15,6 +15,7 @@ import YourHand from "./YourHand";
 import FaceDownBurns from "./FaceDownBurns";
 import FaceUpBurns from "./FaceUpBurns";
 import DrawPile from "./DrawPile";
+import PriorPlay from "./PriorPlay";
 
 //ACTIONS:
 import { playerReadyForNextRound } from "../../store/actions/gameActions";
@@ -42,39 +43,66 @@ class Game extends Component {
         }
       }
       if (this.props.playerAcross) {
-        if (victim === this.props.playerAcross.id) {
-          this.setState({
-            victimCardAtTime: JSON.parse(
-              JSON.stringify(this.props.playerAcross.cardInHand)
-            ),
-            victimStyleClass: "overLay-AC",
-            priestVictimNickname: this.props.playerAcrossInfo.nickname
-          });
+        if (this.props.numberOfPlayers === 2) {
+          if (victim === this.props.playerAcross.id) {
+            this.setState({
+              victimCardAtTime: JSON.parse(
+                JSON.stringify(this.props.playerAcross.cardInHand)
+              ),
+              victimStyleClass: "overLay-AC2",
+              priestVictimNickname: this.props.playerAcrossInfo.nickname
+            });
+          }
+        } else {
+          if (victim === this.props.playerAcross.id) {
+            this.setState({
+              victimCardAtTime: JSON.parse(
+                JSON.stringify(this.props.playerAcross.cardInHand)
+              ),
+              victimStyleClass: "overLay-AC",
+              priestVictimNickname: this.props.playerAcrossInfo.nickname
+            });
+          }
         }
       }
       if (this.props.playerToRight) {
-        if (victim === this.props.playerToRight.id) {
-          this.setState({
-            victimCardAtTime: JSON.parse(
-              JSON.stringify(this.props.playerToRight.cardInHand)
-            ),
-            victimStyleClass: "overLay-TR",
-            priestVictimNickname: this.props.playerToRightInfo.nickname
-          });
+        if (this.props.numberOfPlayers === 3) {
+          if (victim === this.props.playerToRight.id) {
+            this.setState({
+              victimCardAtTime: JSON.parse(
+                JSON.stringify(this.props.playerToRight.cardInHand)
+              ),
+              victimStyleClass: "overLay-AC",
+              priestVictimNickname: this.props.playerToRightInfo.nickname
+            });
+          }
+        } else {
+          if (victim === this.props.playerToRight.id) {
+            this.setState({
+              victimCardAtTime: JSON.parse(
+                JSON.stringify(this.props.playerToRight.cardInHand)
+              ),
+              victimStyleClass: "overLay-TR",
+              priestVictimNickname: this.props.playerToRightInfo.nickname
+            });
+          }
         }
       }
 
       this.setState({
         priestVictimID: victim
       });
+
+      let thisThis = this;
+      setInterval(function() {
+        thisThis.priestViewed();
+      }, 15000);
     }
   };
 
   priestViewed = () => {
     this.setState({
       priestVictimID: null
-
-      //THIS IS WHERE YOU WILL HIT THE DATABASE AFTER A PRIEST PLAYED AND THE OTHER CARD IS VIEWED.
     });
   };
 
@@ -247,11 +275,11 @@ class Game extends Component {
                   <b>Prior Plays:</b>
                   <small className="right"> (most recent on top)</small>
                 </p>
-                {thisPlayer.personalizedPriorPlays.map((prior, index) => (
-                  <p className="prior-play" key={index}>
-                    •{prior}
-                  </p>
-                ))}
+                {thisPlayer
+                  ? thisPlayer.personalizedPriorPlays.map((prior, index) => (
+                      <PriorPlay key={index} prior={prior} />
+                    ))
+                  : null}
               </div>
             </div>
           </div>
