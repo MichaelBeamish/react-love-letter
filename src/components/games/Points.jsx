@@ -9,7 +9,7 @@ const Points = ({ points }) => {
   }
   return (
     <div>
-      Round Wins: {points}
+      <b>Round Wins: {points}</b>
       <br />
       {pointList}
     </div>

@@ -3,63 +3,92 @@
   background: transparent; /* make scrollbar transparent */
 }
 
-.right-col {
+body {
+  background-color: lightskyblue;
 }
-.left-col {
+form {
+  margin: 2em;
+  padding: 0.5em;
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.splash-img {
+  border-radius: 20px;
+  border-style: solid;
 }
 
 .search-invite-containers {
   height: 60vmin;
   max-height: 60vmin;
+  background-color: lightsteelblue;
+  padding: 1em;
+  margin: 1em;
+  border: 2px;
+  border-style: solid;
+  border-radius: 5px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.current-players-containers {
+  height: 60vmin;
+  max-height: 60vmin;
+  background-color: lightslategray;
+  padding: 1em;
+  margin: 1em;
+  border: 2px;
+  border-style: solid;
+  border-radius: 5px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
-.table-card-img {
-  width: 110px;
-  height: 154px;
-  margin-left: 2px;
-  margin-right: 2px;
-  border-radius: 5px;
-}
 .side-card-img {
-  width: 45px;
-  height: 63px;
+  width: 4.75vw;
+  height: 6.65vw;
   margin-left: 2px;
   margin-right: 2px;
-  border-radius: 5px;
+  border-radius: 4px;
+  box-shadow: 5px 5px 5px rgb(36, 36, 36);
 }
 .disc-card-img {
-  width: 130px;
-  height: 182px;
+  width: 7.5vw;
+  height: 10.4vw;
   margin-left: 2px;
   margin-right: 2px;
-  border-radius: 5px;
-}
-.hand-card-img {
-  width: 130px;
-  height: 182px;
-  margin-left: 2px;
-  margin-right: 2px;
-  border-radius: 5px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px rgb(36, 36, 36);
 }
 .hand-card-icon {
-  width: 45px;
-  height: 63px;
+  width: 7.5vw;
+  height: 10.4vw;
   margin-left: 2px;
   margin-right: 2px;
-  border-radius: 5px;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px rgb(36, 36, 36);
+  cursor: pointer;
 }
 .draw-card-img {
-  width: 45px;
-  height: 63px;
+  width: 3.75vw;
+  height: 5.25vw;
   margin-left: 2px;
   margin-right: 2px;
-  border-radius: 2px;
+  border-radius: 4px;
+  box-shadow: 5px 5px 5px rgb(36, 36, 36);
 }
 .skull-icon {
-  width: 3em;
+  width: 5vw;
+}
+.out-container {
+  height: auto;
+  width: 5vw;
+  height: 5vw;
 }
 .btn-skull-icon {
-  width: 1.7em;
+  width: 1.5vw;
   background-color: red;
   padding: 2px;
   border-radius: 50%;
@@ -78,10 +107,10 @@
   width: 1.25em;
 }
 .shield-icon {
-  width: 4em;
+  width: 1vw;
 }
 .btn-shield-icon {
-  width: 2em;
+  width: 2vw;
 }
 .complete-center {
   display: flex;
@@ -121,8 +150,6 @@ nav {
   z-index: +1;
   position: relative;
 }
-.my-nav {
-}
 .nav-header {
   margin-left: 2em;
 }
@@ -142,44 +169,20 @@ nav {
   align-items: center;
 }
 
-.playerNameDisplayContainer {
-  display: flex;
-  justify-content: center;
-}
-
-.playerNameDisplay {
-  width: 90%;
-  padding: 0.25em;
-  display: block;
-  border-bottom: 2px;
-  border-right: 2px;
-  border-left: 2px;
-  border-bottom-style: groove;
-  border-right-style: groove;
-  border-left-style: groove;
-  border-bottom-color: black;
-  border-right-color: black;
-  border-left-color: black;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  font-size: 1.05em;
-  color: black;
-}
-
 .playersCardsInHand {
   margin-top: 2em;
 }
 
 .styleForCurrentPlayer {
-  border: 4px;
+  border: 8px;
   border-style: groove;
   border-color: gold;
 }
 
 .styleForOtherPlayers {
-  border: 4px;
+  border: 8px;
   border-style: groove;
-  border-color: black;
+  border-color: blue;
 }
 
 .center-content {
@@ -200,8 +203,12 @@ nav {
   height: 100%;
 }
 
+.discarded-cards {
+  overflow-y: scroll;
+  height: 36vh;
+}
 .play-button {
-  width: 94%;
+  width: 16vw;
   margin-top: 0.1em;
 }
 
@@ -247,8 +254,8 @@ nav {
 }
 
 .overlay-card-img {
-  width: 180px;
-  height: 252px;
+  width: 7.5vw;
+  height: 10.4vw;
   margin-left: 2px;
   margin-right: 2px;
   border-radius: 5px;
@@ -256,11 +263,11 @@ nav {
 }
 
 .personal-visual {
-  color: white;
-  background-color: black;
-  padding: 0.5em;
+  background-color: white;
+  padding: 1em;
   border-radius: 5px;
   border-style: outset;
+  box-shadow: 10px 10px 5px rgb(36, 36, 36);
 }
 
 .personal-visual-title {
@@ -275,23 +282,42 @@ nav {
   background-color: white;
   border-radius: 15px;
   border-style: outset;
-  width: 25vw;
+  width: 40vw;
   position: absolute;
-  left: 37.5%;
-  top: 30%;
+  left: 30%;
+  top: 32%;
   box-shadow: 10px 10px 5px rgb(36, 36, 36);
   padding-bottom: 1em;
 }
 
 .prior-plays-container {
-  margin-top: 1em;
-  padding-left: 0.1em;
+  margin: 0.25em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   background-color: black;
-  height: 100%;
-  overflow-y: scroll;
-  height: 100%;
+  border-radius: 5px;
+  min-height: 35%;
 }
 .prior-play {
   margin-bottom: 2em;
   color: white;
+}
+
+.border-bottom {
+  border-bottom: 2px;
+  border-bottom-style: solid;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+.game-summary {
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 2em;
+  background-color: lightsteelblue;
+  margin: 1em;
+  padding-bottom: 1em;
 }

@@ -85,17 +85,7 @@ class CardButtons extends Component {
       return (
         <button className="btn btn-small black play-button">
           <span className="complete-center">
-            <img
-              className="btn-skull-icon margin-right-2"
-              src={"/img/skull.png"}
-              alt="die"
-            />
-            <small> Discard And Die </small>
-            <img
-              className="btn-skull-icon margin-left-2"
-              src={"/img/skull.png"}
-              alt="die"
-            />
+            <small>Can't discard.</small>
           </span>
         </button>
       );
@@ -150,7 +140,7 @@ class CardButtons extends Component {
                       src={"/img/shield.png"}
                       alt="protection"
                     />
-                    <small> Protect Yourself </small>
+                    <small> Protection </small>
                     <img
                       className="btn-shield-icon margin-left-2"
                       src={"/img/shield.png"}
@@ -254,7 +244,7 @@ class CardButtons extends Component {
     if (buttonList.length === 0) {
       return <button className="btn btn-small black">ERROR</button>;
     } else {
-      return <div>{buttonList}</div>;
+      return <div className="buttons">{buttonList}</div>;
     }
   }
 }

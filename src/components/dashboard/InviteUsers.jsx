@@ -32,7 +32,6 @@ class InviteUsers extends Component {
               {user.firstName} {user.lastName}
             </td>
             <td>{user.nickname}</td>
-            <td>{user.email}</td>
             <td>
               <InviteButton
                 addPlayerToGame={addPlayerToGame}
@@ -65,7 +64,6 @@ class InviteUsers extends Component {
             <tr>
               <th>Name</th>
               <th>Nickname</th>
-              <th>Email</th>
               <th>Invite</th>
             </tr>
           </thead>

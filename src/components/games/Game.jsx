@@ -30,32 +30,38 @@ class Game extends Component {
   priestPlayed = victim => {
     if (this.state.priestVictimID === null) {
       //ADD LOGIC FOR PLAYER ACROSS AND TO RIGHT.
-      if (victim === this.props.playerToLeft.id) {
-        this.setState({
-          victimCardAtTime: JSON.parse(
-            JSON.stringify(this.props.playerToLeft.cardInHand)
-          ),
-          victimStyleClass: "overLay-TL",
-          priestVictimNickname: this.props.playerToLeftInfo.nickname
-        });
+      if (this.props.playerToLeft) {
+        if (victim === this.props.playerToLeft.id) {
+          this.setState({
+            victimCardAtTime: JSON.parse(
+              JSON.stringify(this.props.playerToLeft.cardInHand)
+            ),
+            victimStyleClass: "overLay-TL",
+            priestVictimNickname: this.props.playerToLeftInfo.nickname
+          });
+        }
       }
-      if (victim === this.props.playerAcross.id) {
-        this.setState({
-          victimCardAtTime: JSON.parse(
-            JSON.stringify(this.props.playerAcross.cardInHand)
-          ),
-          victimStyleClass: "overLay-AC",
-          priestVictimNickname: this.props.playerAcrossInfo.nickname
-        });
+      if (this.props.playerAcross) {
+        if (victim === this.props.playerAcross.id) {
+          this.setState({
+            victimCardAtTime: JSON.parse(
+              JSON.stringify(this.props.playerAcross.cardInHand)
+            ),
+            victimStyleClass: "overLay-AC",
+            priestVictimNickname: this.props.playerAcrossInfo.nickname
+          });
+        }
       }
-      if (victim === this.props.playerToRight.id) {
-        this.setState({
-          victimCardAtTime: JSON.parse(
-            JSON.stringify(this.props.playerToRight.cardInHand)
-          ),
-          victimStyleClass: "overLay-TR",
-          priestVictimNickname: this.props.playerToRightInfo.nickname
-        });
+      if (this.props.playerToRight) {
+        if (victim === this.props.playerToRight.id) {
+          this.setState({
+            victimCardAtTime: JSON.parse(
+              JSON.stringify(this.props.playerToRight.cardInHand)
+            ),
+            victimStyleClass: "overLay-TR",
+            priestVictimNickname: this.props.playerToRightInfo.nickname
+          });
+        }
       }
 
       this.setState({
@@ -182,17 +188,31 @@ class Game extends Component {
         }
       });
 
+      if (game && users) {
+        if (game.status === "gameOver") {
+          let winningPlayer = game.players.find(
+            player => player.id === game.overallWinner
+          );
+          winningUser = users.find(
+            user => user.id === winningPlayer.userReference
+          );
+        }
+      }
+
       return (
         <div className="main-height noScroll">
           <div className="row height-100">
-            <div className="col l2 m2 blue darken-2 height-100 left-col">
-              <b>{game.gameName.toUpperCase()}</b>
-              <br />
-              <b>Round: {game.round}</b>
-              <br />
-              <small>
-                <i>Began {moment(game.createdAt.toDate()).calendar()}</i>
-              </small>
+            <div className="col l2 m2 blue darken-2 height-100 left-col scrollable">
+              <div className="center border-bottom">
+                <h5>
+                  <b>{game.gameName.toUpperCase()}</b>
+                </h5>
+                <b>Round: {game.round}</b>
+                <br />
+                <small>
+                  <i>Began {moment(game.createdAt.toDate()).calendar()}</i>
+                </small>
+              </div>
               <YourHand
                 cardInHand={thisPlayer.cardInHand}
                 newCard={thisPlayer.newCard}
@@ -203,18 +223,12 @@ class Game extends Component {
                 priestPlayed={this.priestPlayed}
               />
             </div>
-            {/* MAKE END GAME DISPLAY LOOK NICER */}
-            {game.status !== "gameOver" ? (
-              <div className="col l8 m8 grey darken-4 height-100 v-center width-100 zero-mp">
-                {otherPlayers}
-              </div>
-            ) : (
-              <div className="col l8 m8 grey darken-4 height-100 end-game-display">
-                <h1 className="white-text">Game Over</h1>
-              </div>
-            )}
-            <div className="col l2 m2 blue darken-2 height-100 right-col width-100 zero-mp">
-              <p>
+            <div className="col l8 m8 grey darken-4 height-100 v-center width-100 zero-mp">
+              {otherPlayers}
+            </div>
+
+            <div className="col l2 m2 blue darken-2 height-100 right-col scrollable width-100 zero-mp">
+              <p className="center">
                 <b>Burn Cards:</b>
               </p>
               {game.faceUpBurnCards.length ? (
@@ -223,19 +237,20 @@ class Game extends Component {
               {game.faceDownBurnCards.length ? (
                 <FaceDownBurns faceDownBurnCards={game.faceDownBurnCards} />
               ) : null}
-              <p>
-                <b>Draw Pile:</b> ({game.drawPile.length} cards left)
+              <p className="center">
+                <b>Draw Pile:</b>
+                <br />({game.drawPile.length} cards left)
               </p>
               <DrawPile drawPile={game.drawPile} />
               <div className="prior-plays-container">
                 <p className="white-text">
                   <b>Prior Plays:</b>
-                  <small> (most recent on top)</small>
+                  <small className="right"> (most recent on top)</small>
                 </p>
                 {thisPlayer.personalizedPriorPlays.map((prior, index) => (
-                  <div className="prior-play" key={index}>
+                  <p className="prior-play" key={index}>
                     •{prior}
-                  </div>
+                  </p>
                 ))}
               </div>
             </div>
@@ -255,11 +270,19 @@ class Game extends Component {
                   />
                   <br />
                   <button
-                    className="btn blue darken-2 personal-visual-button"
+                    className="btn btn-small blue darken-2 personal-visual-button"
                     onClick={() => this.priestViewed()}
                   >
                     OK
                   </button>
+                </div>
+              </div>
+            ) : null}
+            {winningUser && game.status === "gameOver" ? (
+              <div className="round-over-display">
+                <div className="center">
+                  <h1>Game Over!</h1>
+                  <h2>{winningUser.nickname} won!</h2>
                 </div>
               </div>
             ) : null}

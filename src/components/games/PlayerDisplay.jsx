@@ -20,37 +20,39 @@ const PlayerDisplay = ({ player, user, whosTurn }) => {
     }
     return (
       <div
-        className={`center height-100 width-100 grey darken-2 ${styleForCurrentPlayer}`}
+        className={`${playerColor} center height-100 width-100 ${styleForCurrentPlayer}`}
       >
         <div className="row height-100">
-          <div className="playerNameDisplayContainer">
-            <span className={`${playerColor} playerNameDisplay`}>
-              {user.nickname.toUpperCase()}{" "}
-            </span>
+          <div className="row">
+            <div className="col l12">
+              <h5>
+                <b>{user.nickname.toUpperCase()}</b>
+              </h5>
+            </div>
           </div>
-          <div className="col l3 center">
+          <div className="col l4 center">
             <Points points={player.roundPoints} />
-            <p>Discarded: {player.totalDiscardedPoints}</p>
             <div className="playersCardsInHand">
               {player.isIn === true ? (
                 <img
-                  className="draw-card-img"
+                  className="side-card-img"
                   src={"/img/cardback.jpg"}
                   alt="card"
                 />
               ) : (
-                <div className="out-container">
-                  <p>{user.firstName} is out!</p>
+                <div className="center">
                   <img
                     className="skull-icon"
                     src={"/img/skull.png"}
                     alt="player-is-out"
                   />
+                  <br />
+                  <b>{user.firstName} is out!</b>
                 </div>
               )}
               {player.newCard ? (
                 <img
-                  className="draw-card-img"
+                  className="side-card-img"
                   src={"/img/cardback.jpg"}
                   alt="card"
                 />
@@ -67,8 +69,14 @@ const PlayerDisplay = ({ player, user, whosTurn }) => {
               ) : null}
             </div>
           </div>
-          <div className="col l9 scrollable">
-            <p>Discarded Cards:</p>
+          <div className="col l8 discarded-cards">
+            <b>Discarded Cards:</b>
+            <br />
+            <small>
+              Total Value Of Discarded Cards: {player.totalDiscardedPoints}
+            </small>
+            <br />
+            <br />
             {player.discardedCards.length
               ? player.discardedCards.map((card, index) => (
                   <img

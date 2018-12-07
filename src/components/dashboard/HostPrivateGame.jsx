@@ -98,21 +98,25 @@ class HostPrivateGame extends Component {
           </div>
         </form>
         <div className="row">
-          <div className="col l6 m6 center green search-invite-containers">
-            <UsersInvited
-              users={users}
-              removePlayerFromGame={this.removePlayerFromGame}
-              playersAdded={this.state.players}
-              auth={auth}
-            />
+          <div className="col l6 m6 center">
+            <div className="current-players-containers">
+              <UsersInvited
+                users={users}
+                removePlayerFromGame={this.removePlayerFromGame}
+                playersAdded={this.state.players}
+                auth={auth}
+              />
+            </div>
           </div>
 
-          <div className="col l6 m6 center blue search-invite-containers">
-            <InviteUsers
-              users={users}
-              addPlayerToGame={this.addPlayerToGame}
-              players={this.state.players}
-            />
+          <div className="col l6 m6 center">
+            <div className="search-invite-containers">
+              <InviteUsers
+                users={users}
+                addPlayerToGame={this.addPlayerToGame}
+                players={this.state.players}
+              />
+            </div>
           </div>
         </div>
       </div>

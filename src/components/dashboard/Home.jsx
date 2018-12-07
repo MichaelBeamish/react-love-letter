@@ -7,17 +7,35 @@ import { compose } from "redux";
 
 import { Redirect } from "react-router-dom";
 
-import moment from "moment";
+import GameSummary from "./GameSummary";
 
 class Home extends Component {
   render() {
-    const { auth, profile, games } = this.props;
-    let yourGames = [];
+    const { auth, profile, games, users } = this.props;
+    let newGames;
     if (games) {
-      games.forEach(game => {
+      newGames = JSON.parse(JSON.stringify(games));
+    }
+    let yourGames = [];
+    if (games && users) {
+      newGames.forEach(game => {
         game.players.forEach(player => {
           if (player.userReference === auth.uid) {
-            yourGames.push(game);
+            let gameObject = game;
+            gameObject.players.forEach(player => {
+              if (player.userReference === auth.uid) {
+                let thisUser = users.filter(
+                  user => user.id === player.userReference
+                );
+                gameObject.thisUser = thisUser[0];
+              } else {
+                let otherUser = users.filter(
+                  user => user.id === player.userReference
+                );
+                gameObject.otherUser = otherUser[0];
+              }
+            });
+            yourGames.push(gameObject);
           }
         });
       });
@@ -25,26 +43,25 @@ class Home extends Component {
 
     if (!auth.uid) return <Redirect to="/splash" />; //If not logged in redirect.
     return (
-      <div className="container">
-        <h1 className="center">Welcome {profile.firstName}!</h1>
+      <div>
+        <h1 className="center">
+          Welcome
+          {profile.firstName !== undefined ? " " + profile.firstName : null}!
+        </h1>
         <div className="center">
           <NavLink to="/hostPrivateGame">
-            <button className="btn green">Host Private Game</button>
+            <button className="btn orange">Create New Game</button>
           </NavLink>
         </div>
-        <div>
-          <h3>Your Current Games</h3>
+        <div className="row container games-container">
           {yourGames.length > 0 &&
+            users &&
             yourGames.map(game => {
-              return (
-                <div key={game.id} className="game-bubble">
-                  <NavLink to={"/game/" + game.id}>
-                    <h5>{game.gameName.toUpperCase()}</h5>
-                  </NavLink>
-                  <p>Started {moment(game.createdAt.toDate()).calendar()}</p>
-                </div>
-              );
+              return <GameSummary key={game.id} game={game} id={auth.uid} />;
             })}
+          {yourGames.length === 0 ? (
+            <div>You currently have no games.</div>
+          ) : null}
         </div>
       </div>
     );
@@ -54,6 +71,7 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     games: state.firestore.ordered.games,
+    users: state.firestore.ordered.users,
     auth: state.firebase.auth,
     profile: state.firebase.profile
   };
@@ -61,5 +79,5 @@ const mapStateToProps = state => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "games" }])
+  firestoreConnect([{ collection: "users" }, { collection: "games" }])
 )(Home);

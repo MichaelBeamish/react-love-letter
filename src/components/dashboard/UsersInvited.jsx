@@ -12,7 +12,6 @@ const UsersInvited = ({ auth, users, removePlayerFromGame, playersAdded }) => {
                 {user.firstName} {user.lastName}
               </td>
               <td>{user.nickname}</td>
-              <td>{user.email}</td>
               <td />
             </tr>
           );
@@ -23,7 +22,6 @@ const UsersInvited = ({ auth, users, removePlayerFromGame, playersAdded }) => {
                 {user.firstName} {user.lastName}
               </td>
               <td>{user.nickname}</td>
-              <td>{user.email}</td>
               <td>
                 <button
                   onClick={() => {
@@ -54,7 +52,6 @@ const UsersInvited = ({ auth, users, removePlayerFromGame, playersAdded }) => {
           <tr>
             <th>Name</th>
             <th>Nickname</th>
-            <th>Email</th>
             <th>Remove</th>
           </tr>
         </thead>

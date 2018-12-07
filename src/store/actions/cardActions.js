@@ -21,7 +21,7 @@ export const playCard = (
     let nextPlayer = whosTurn + 1;
     let status = game.status;
     let roundWinner = null;
-    let overAllWinner = game.overallWinner;
+    let overallWinner = game.overallWinner;
     let faceDownBurnCards = game.faceDownBurnCards;
     let cardNumberValues = {
       guard: 1,
@@ -412,7 +412,7 @@ export const playCard = (
       players.forEach(player => {
         if (player.roundPoints === 7) {
           status = "gameOver";
-          overAllWinner = player.id;
+          overallWinner = player.id;
         }
       });
     }
@@ -420,7 +420,7 @@ export const playCard = (
       players.forEach(player => {
         if (player.roundPoints === 5) {
           status = "gameOver";
-          overAllWinner = player.id;
+          overallWinner = player.id;
         }
       });
     }
@@ -428,7 +428,7 @@ export const playCard = (
       players.forEach(player => {
         if (player.roundPoints === 4) {
           status = "gameOver";
-          overAllWinner = player.id;
+          overallWinner = player.id;
         }
       });
     }
@@ -461,7 +461,7 @@ export const playCard = (
       .update({
         status: status,
         roundWinner: roundWinner,
-        overAllWinner: overAllWinner,
+        overallWinner: overallWinner,
         whosTurn: nextPlayer,
         drawPile: drawPile,
         players: players,

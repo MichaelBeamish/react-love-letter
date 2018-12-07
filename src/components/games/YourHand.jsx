@@ -41,11 +41,12 @@ class YourHand extends Component {
       priestPlayed
     } = this.props;
     return (
-      <div>
-        <p>
-          <b>Your Hand:</b>
+      <div className="center">
+        <b>Your Hand:</b>
+        <br />
+        {game && game.whosTurn === thisPlayer.id ? (
           <small> (click card to show options)</small>
-        </p>
+        ) : null}
 
         <div className="row center">
           {cardInHand ? (
@@ -70,47 +71,43 @@ class YourHand extends Component {
           ) : null}
         </div>
         <div className="row center">
-          {this.state.cardInHandOptionsDisplayed === true ? (
-            <div>
-              <img
-                className="hand-card-img"
-                src={"/img/" + cardInHand + ".jpg"}
-                alt="card"
-              />
-            </div>
-          ) : null}
           {game.whosTurn === thisPlayer.id &&
           this.state.cardInHandOptionsDisplayed === true ? (
-            <CardButtons
-              gameID={gameID}
-              game={game}
-              card={cardInHand}
-              cardPicked="cardInHand"
-              thisPlayer={thisPlayer}
-              users={users}
-              priestPlayed={priestPlayed}
-            />
-          ) : null}
-          {this.state.newCardOptionsDisplayed === true ? (
             <div>
-              <img
-                className="hand-card-img"
-                src={"/img/" + newCard + ".jpg"}
-                alt="card"
+              <p>
+                <b>
+                  <u>{thisPlayer.cardInHand.toUpperCase()}</u> SELECTED...
+                </b>
+              </p>
+              <CardButtons
+                gameID={gameID}
+                game={game}
+                card={cardInHand}
+                cardPicked="cardInHand"
+                thisPlayer={thisPlayer}
+                users={users}
+                priestPlayed={priestPlayed}
               />
             </div>
           ) : null}
           {game.whosTurn === thisPlayer.id &&
           this.state.newCardOptionsDisplayed === true ? (
-            <CardButtons
-              gameID={gameID}
-              game={game}
-              card={newCard}
-              cardPicked="newCard"
-              thisPlayer={thisPlayer}
-              users={users}
-              priestPlayed={priestPlayed}
-            />
+            <div>
+              <p>
+                <b>
+                  <u>{thisPlayer.newCard.toUpperCase()}</u> SELECTED...
+                </b>
+              </p>
+              <CardButtons
+                gameID={gameID}
+                game={game}
+                card={newCard}
+                cardPicked="newCard"
+                thisPlayer={thisPlayer}
+                users={users}
+                priestPlayed={priestPlayed}
+              />
+            </div>
           ) : null}
         </div>
       </div>
