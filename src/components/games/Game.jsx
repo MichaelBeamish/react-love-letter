@@ -92,11 +92,6 @@ class Game extends Component {
       this.setState({
         priestVictimID: victim
       });
-
-      let thisThis = this;
-      setInterval(function() {
-        thisThis.priestViewed();
-      }, 15000);
     }
   };
 
