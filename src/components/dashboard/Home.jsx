@@ -57,7 +57,9 @@ class Home extends Component {
           {yourGames.length > 0 &&
             users &&
             yourGames.map(game => {
-              return <GameSummary key={game.id} game={game} id={auth.uid} />;
+              if (game.status !== "gameOver") {
+                return <GameSummary key={game.id} game={game} id={auth.uid} />;
+              }
             })}
           {yourGames.length === 0 ? (
             <div>You currently have no games.</div>
